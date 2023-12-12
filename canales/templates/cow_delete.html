@@ -1,0 +1,28 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow Delete</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Se eliminará el siguiente registro</h1>
+        <p><strong>Identificación: </strong>{{ cow.identification }}</p>
+        <form method="POST" id="delete-form">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirmDelete()">Eliminar</button>
+        </form>
+        <div>
+            <a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Cancelar</a>
+        </div>
+
+        <script>
+            function confirmDelete() {
+                return confirm("¿Está seguro de querer eliminar el registro?\n\nSeleccione 'Aceptar' para confirmar o 'Cancelar' para abortar la operación.");
+            }
+        </script>
+    {% endblock %} 
+</body>
+</html>

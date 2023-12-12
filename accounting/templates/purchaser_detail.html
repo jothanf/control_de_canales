@@ -1,0 +1,72 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchaser Detail</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Detalles del comprador</h1>
+        <h3><strong>Nombre de comprador: </strong>{{ purchaser.name }}</h3>
+        <table border="1">
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ purchaser.phone }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ purchaser.address }}</td>
+            </tr>
+            <tr>
+                <th>Límite de crédito total</th>
+                <td>{{ purchaser.total_credit_limit }}</td>
+            </tr>
+            <tr>
+                <th>Saldo pendiente</th>
+                <td>{{ purchaser.outstanding_balance }}</td>
+            </tr>
+            <tr>
+                <th>Total de pagos</th>
+                <td>{{ purchaser.total_payments }}</td>
+            </tr>
+        </table>
+
+        <p>{{contador}}</p>
+        <br>
+        <hr>
+        <h3>Compras pendientes</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Abono</th>
+                    <th>Fecha de compra</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in all_purchases %}
+                    {% if purchase.status == 'pending' %}
+                        <tr>
+                            <td>{{ purchase.price }}</td>
+                            <td>{{ purchase.status }}</td>
+                            <td>{{ purchase.payment }}</td>
+                            <td>{{ purchase.purchase_date }}</td>
+                            <td><a href="{% url 'make_payment' purchase.id %}" class="btn btn-primary">Hacer pago</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>Compras pagadas</h3>
+        <div>
+            <a href="{% url 'purchaser_delete' purchaser.id %}" class="btn btn-primary">Eliminar comprador</a>
+        </div>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

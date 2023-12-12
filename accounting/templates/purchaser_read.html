@@ -1,0 +1,31 @@
+{% extends 'accounting_base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchaser Read</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Listado de clientes</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del comprador</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchaser in all_purchasers %}
+                <tr>
+                    <td>{{ purchaser.name }}</td>
+                    <td>
+                        <a href="{% url 'purchaser_detail' purchaser.id %}" class="btn btn-primary">Detalles</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+</body>
+</html>

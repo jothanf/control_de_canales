@@ -1,0 +1,36 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Providers Create</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Registrar nuevo proveedor</h1>
+        <h3>{{message}}</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="name">Nombre</label>
+            <input type="text" name="name" id="name" required>
+            <label for="phone">Telefono</label>
+            <input type="number" name="phone" id="phone" required>
+            <label for="address">Direccion</label>
+            <input type="text" name="address" id="address" required>
+            <label for="credit_balance">Cupo de credito</label>
+            <input type="number" name="credit_balance" id="credit_balance" required>
+
+            <p>
+                <input type="submit" value="Guardar" onclick="showAlert()">
+            </p>
+        </form>
+
+        <script>
+            function showAlert() {
+                alert("Se creará un nuevo proveedor");
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>

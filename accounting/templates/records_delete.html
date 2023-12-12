@@ -1,0 +1,23 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar registros</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Eliminar registros</h1>
+        <p><strong>Fecha de registro: </strong>{{record.date_day}}</p>
+        <p><strong>Venta en efectivo: </strong>{{record.sale_day_cash}}</p>
+        <p><strong>Venta a credito: </strong>{{record.sale_day_credit}}</p>
+        <p><strong>Credito cobrado: </strong>{{record.credit_day_payment}}</p>
+        <p><strong>Ingreso total: </strong>{{record.total_income}}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+        </form>
+    {% endblock %}
+</body>
+</html>

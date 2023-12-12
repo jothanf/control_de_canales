@@ -1,0 +1,59 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processed by date</title>
+</head>
+<body>
+    {% block content %}
+        <br>
+        <br>
+        <a href="{% url 'purchases_by_date' %}" class="btn btn-primary">Filtrar compras</a>
+        <a href="{% url 'processed_by_date' %}" class="btn btn-primary">Filtrar sacrificios</a>
+        <br>
+        <br>
+        <h1>sacrificios por fecha</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="init_date">Fecha de inicio</label>
+            <input type="date" name="init_date" id="init_date" required>
+            <label for="end_date">Fecha de fin</label>
+            <input type="date" name="end_date" id="end_date" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <div>
+            <p>Fecha de inicio: {{ init_date }}</p>
+            <p>Fecha de fin: {{ end_date }}</p>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Identificación</th>
+                        <th>Proveedor</th>
+                        <th>Estado de cuenta</th>
+                        <th>Fecha de sacrificio</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cow in cows_by_date %}
+                        <tr>
+                            <td>{{ cow.identification }}</td>
+                            <td>{{ cow.provider }}</td>
+                            <td>{{ cow.payment_state }}</td>
+                            <td>{{ cow.slaughter_dates }}</td>
+                            <td><a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Ver detalles</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

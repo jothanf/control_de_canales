@@ -1,0 +1,35 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas diarias</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Ventas diarias</h1>
+
+        <a href="{% url 'day_purchase' %}" class="btn btn-primary">Agregar registro</a>
+
+        <table border="1">
+            <tr>
+                <td><strong>Fecha del registro</strong></td>
+                <td><strong>Venta En efectivo</strong></td>
+                <td><strong>Venta a credito</strong></td>
+                <td><strong>Credito cobrado</strong></td>
+                <td><strong>Ingreso total</strong></td>
+            </tr>
+            {% for record in all_records %}
+            <tr>
+                <td>{{ record.date_day }}</td>
+                <td>{{ record.sale_day_cash }}</td>
+                <td>{{ record.sale_day_credit }}</td>
+                <td>{{ record.credit_day_payment }}</td>
+                <td>{{ record.total_income }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endblock %}
+</body>
+</html>

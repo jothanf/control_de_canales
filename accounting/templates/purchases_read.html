@@ -1,0 +1,36 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchases read</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Purchases read</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Comprador</th>
+                    <th>Valor de la compra</th>
+                    <th>Metodo de pago</th>
+                    <th>Estado de la compra</th>
+                    <th>Fecha de compra</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in all_purchases %}
+                    <tr>
+                        <td>{{ purchase.purchaser }}</td>
+                        <td>{{ purchase.price }}</td>
+                        <td>{{ purchase.payment_method }}</td>
+                        <td>{{ purchase.status }}</td>
+                        <td>{{ purchase.purchase_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+</body>
+</html>

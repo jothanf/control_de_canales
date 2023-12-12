@@ -1,0 +1,32 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Providers create success</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Se ha registrado un nuevo proveedor</h1>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ provider.name }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ provider.phone }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ provider.address }}</td>
+            </tr>
+            <tr>
+                <th>Cupo de credito</th>
+                <td>{{ provider.credit_balance }}</td>
+            </tr>
+        </table>
+    {% endblock %}
+</body>
+</html>

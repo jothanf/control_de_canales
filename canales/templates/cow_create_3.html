@@ -1,0 +1,15 @@
+{% extends 'canales_base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow Create 3</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Se agregaron correctamente los datos de sacrificio</h1>
+        <p><strong>Identificacion: </strong>{{cow.identification}}</p>
+        <a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Regresar a los detalles</a>
+    {% endblock %}
+</body>
+</html>

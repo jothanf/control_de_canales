@@ -1,0 +1,49 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas diarias</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Ventas diarias</h1>
+
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="sale_day_cash">Venta de contado</label>
+            <input type="number" name="sale_day_cash" id="sale_day_cash" required>
+            <label for="sale_day_credit">Venta credito</label>
+            <input type="number" name="sale_day_credit" id="sale_day_credit">
+            <label for="credit_day_payment">Credito cobrado</label>
+            <input type="text" name="credit_day_payment" id="credit_day_payment">
+            <button type="submit" >Hacer reporte</button>
+        </form>
+
+        <hr>
+
+        <table border="1">
+            <tr>
+                <td class="title"><strong>Fecha del registro</strong></td>
+                <td class="title"><strong>Venta En efectivo</strong></td>
+                <td class="title"><strong>Venta a credito</strong></td>
+                <td class="title"><strong>Credito cobrado</strong></td>
+                <td class="title"><strong>Ingreso total</strong></td>
+            </tr>
+            {% for record in all_records %}
+            <tr>
+                <td>{{ record.date_day }}</td>
+                <td>{{ record.sale_day_cash }}</td>
+                <td>{{ record.sale_day_credit }}</td>
+                <td>{{ record.credit_day_payment }}</td>
+                <td>{{ record.total_income }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

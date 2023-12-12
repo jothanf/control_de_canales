@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounting_base.css' %}">
+    <title>Accounting base</title>
+</head>
+<body>
+    <br>
+    <h1>Apartado de clientes</h1>
+    <br>
+    <nav>
+        <a href="{% url 'purchaser_create' %}">Crear comprador</a>
+        <a href="{% url 'purchaser_read' %}">Lista de compradores</a>
+        <a href="{% url 'new_purchase' %}">Nueva compra</a>
+        <a href="{% url 'purchases_read' %}">Historial de compras</a>
+        <a href="{% url 'day_purchase' %}">Registro de ventas</a>
+        <a href="{% url 'sale_history' %}">Historial de ventas</a>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <nav class="footer">
+        <a href="{% url 'accounting_home' %}">Pagina principal de clientes</a>
+        <a href="{% url 'canales_home' %}">Administracion de canales</a>
+    </nav>
+</body>
+</html>

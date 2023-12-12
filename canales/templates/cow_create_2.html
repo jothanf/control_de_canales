@@ -1,0 +1,61 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow Create 2</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Detalles del sacrificio</h1>
+        <p><strong>Identidicacion del animal: </strong>{{ cow.identification }}</p>
+        <p><strong>Proveedor: </strong>{{ cow.provider }}</p>
+        <p><strong>Tipo de animal: </strong>{{ cow.animal_type }}</p>
+        <p><Strong>Fecha de compra: </Strong>{{ cow.purchase_dates }}</p>
+        <p><strong>Peso vivo: </strong>{{ cow.live_weight }}Kg</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="slaughter_dates">Fecha de Sacrificio:</label>
+            <input type="date" id="slaughter_dates" name="slaughter_dates" value="{{ animal.slaughter_dates }}" required>
+            
+            <label for="canal_weight">Peso del Canal en Kg:</label>
+            <input type="text" id="canal_weight" name="canal_weight" oninput="formatPrice(this)" pattern="[0-9]*" value="{{ animal.canal_weight }}" required>
+            
+            <label for="other_expenses">Otros Gastos:</label>
+            <div id="other-expenses-container">
+                <div class="expense">
+                    <input type="text" placeholder="Descripción" name="descripcion" required>
+                    <input type="text" placeholder="Precio" name="precio" required>
+                    <button type="button" onclick="agregarGasto(this)">Agregar Gasto</button>
+                </div>
+            </div>
+            <button type="submit">Actualizar</button>
+        </form>
+        <a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Regresar</a>
+        <br>
+        <br>
+        <script>
+            function agregarGasto(button) {
+                const container = document.getElementById('other-expenses-container');
+                const expenseDiv = document.createElement('div');
+                expenseDiv.className = 'expense';
+
+                expenseDiv.innerHTML = `
+                    <input type="text" placeholder="Descripción" name="descripcion">
+                    <input type="text" placeholder="Precio" name="precio">
+                    <button type="button" onclick="eliminarGasto(this)">Eliminar</button>
+                `;
+
+                container.appendChild(expenseDiv);
+            }
+
+            function eliminarGasto(button) {
+                const container = document.getElementById('other-expenses-container');
+                container.removeChild(button.parentNode);
+            }
+
+        </script>
+    {% endblock %}
+</body>
+</html>

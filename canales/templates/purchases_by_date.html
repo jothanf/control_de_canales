@@ -1,0 +1,113 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compras por fecha</title>
+</head>
+<body>
+    {% block content %}
+        <br>
+        <br>
+        <a href="{% url 'purchases_by_date' %}" class="btn btn-primary">Filtrar compras</a>
+        <a href="{% url 'processed_by_date' %}" class="btn btn-primary">Filtrar sacrificios</a>
+        <br>
+        <br>
+        <h1>Compras por fecha</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="init_date">Fecha de inicio</label>
+            <input type="date" name="init_date" id="init_date" required>
+            <label for="end_date">Fecha de fin</label>
+            <input type="date" name="end_date" id="end_date" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <div>
+            <p>Fecha de inicio: {{ init_date }}</p>
+            <p>Fecha de fin: {{ end_date }}</p>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Identificación</th>
+                        <th>Tipo</th>
+                        <th>Proveedor</th>
+                        <th>Estado del animal</th>
+                        <th>Estado de cuenta</th>
+                        <th>Precio vivo</th>
+                        <th>Peso vivo</th>
+                        <th>Precio total</th>
+                        <th>Fecha de compra</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cow in cows_by_date %}
+                        <tr>
+                            <td>{{ cow.identification }}</td>
+                            <td>{{ cow.animal_type }}</td>
+                            <td>{{ cow.provider }}</td>
+                            <td>{{ cow.state }}</td>
+                            <td>{{ cow.payment_state }}</td>
+                            <td>{{ cow.live_price }}</td>
+                            <td>{{ cow.live_weight }}</td>
+                            <td>{{ cow.total_price_purchase }}</td>
+                            <td>{{ cow.purchase_dates }}</td>
+                            <td><a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Ver detalles</a></td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><strong>Total de compra</strong></td>
+                        <td>{{ total_live_price_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cerdos registrados</strong></td>
+                        <td>{{ pigg_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio promedio de cerdo</strong></td>
+                        <td>{{ average_pigg_price }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vacas registradas</strong></td>
+                        <td>{{ cow_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio promedio de vaca</strong></td>
+                        <td>{{ average_cow_price }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total de animales</strong></td>
+                        <td>{{ animal_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vacas vivas</strong></td>
+                        <td>{{ cow_alive_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vacas procesadas</strong></td>
+                        <td>{{ cow_processed_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cerdos vivos</strong></td>
+                        <td>{{ pigg_alive_counter }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cerdos procesados</strong></td>
+                        <td>{{ pigg_processed_counter }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Agregar la imagen de la gráfica -->
+            <img src="{{ chart_url }}" alt="Gráfica de animales por tipo">
+        </div>
+        
+        <br>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

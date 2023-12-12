@@ -1,0 +1,25 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Providers Delete</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Eliminar proveedor</h1>
+        <h2>¿Desea eliminar al proveedor {{ provider.name }}?</h2>
+        <form method="POST" onsubmit="return showAlert()">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+        </form>
+
+        <script>
+            function showAlert() {
+                return confirm("¿Está seguro de que desea eliminar al proveedor? Se eliminarán todas las compras relacionadas con el proveedor.");
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>

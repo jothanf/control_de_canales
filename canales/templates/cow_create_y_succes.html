@@ -1,0 +1,25 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New cow create succes</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Se registro un nuevo animal</h1>
+        <p><strong>Identificación: </strong>{{ new_animal.identification }}</p>
+        <p><strong>Precio: </strong>{{ new_animal.live_price }}</p>
+        <p><Strong>Precio por kilo: </Strong>{{ kg_price }}</p>
+        <p><strong>Peso: </strong>{{ new_animal.live_weight }}Kg</p>
+        <p><strong>Tipo de animal: </strong>{{ new_animal.animal_type }}</p>
+        <p><Strong>Proveedor: </Strong>{{ new_animal.provider }}</p>
+
+
+        <div>
+            <a href="{% url 'cow_create_y' %}" class="btn btn-primary">Registar nueva compra</a>
+        </div>
+    {% endblock %}
+</body>
+</html>

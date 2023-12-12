@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <!-- Otras etiquetas del encabezado -->
+</head>
+<body>
+    <div style="display: flex;">
+        <div style="flex: 70%;">
+            <!-- Inserta la gráfica aquí -->
+            <img src="data:image/png;base64,{{ graphic }}" alt="Gráfico de Ventas">
+        </div>
+        <div style="flex: 30%;">
+            <h2>Resumen de Ventas</h2>
+            <p>Total Peso del animal: {{ total_peso_canal }}</p>
+            <p>Total Peso de Desperdicio: {{ total_peso_desperdicio }}</p>
+            <p>Mediana Peso del animal: {{ mediana_efectivo }}</p>
+            <p>Mediana Peso de Desperdicio: {{ mediana_credito }}</p>
+            <p>Moda Peso del animal: {{ moda_efectivo }}</p>
+            <p>Moda Peso de Desperdicio: {{ moda_credito }}</p>
+            <p>Rango Peso del animal: {{ rango_efectivo }}</p>
+            <p>Rango Peso de Desperdicio: {{ rango_credito }}</p>
+            <p>Desviación Estándar Peso del animal: {{ desviacion_efectivo }}</p>
+            <p>Desviación Estándar Peso de Desperdicio: {{ desviacion_credito }}</p>
+        </div>
+    </div>
+    <!-- Otras partes de la página -->
+</body>
+</html>

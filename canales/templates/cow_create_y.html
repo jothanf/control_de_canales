@@ -1,0 +1,52 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New cow create</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Compra</h1>
+
+        <form method='POST'>
+            {% csrf_token %}
+            <label for="identification">Identidicacion</label>
+            <input type="text" name="identification" id="identification" required>
+
+            <label for="kg_price">Precio por kilo</label>
+            <input type="text" name="kg_price" id="kg_price" required>
+
+            <label for="live_weight">Peso vivo</label>
+            <input type="text" name="live_weight" id="live_weight" required>
+
+            <label for="purchase_dates">Fecha de Compra:</label>
+            <input type="date" id="purchase_dates" name="purchase_dates" value="{{ animal.purchase_dates }}" required>
+            
+            <label for="payment_terms">Términos de Pago:</label>
+            <input type="number" id="payment_terms" name="payment_terms" value="{{ animal.payment_terms }}" required>
+            
+            <label for="animal_type">Tipo de animal</label>
+            <select name="animal_type" id="animal_type" required>
+                <option value="" selected>Selecciona un tipo de animal</option>
+                {% for choice in animal_type_choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="provider">Proveedor:</label>
+            <select id="provider" name="provider" required>
+                <option value="" selected>Selecciona un proveedor</option>
+                {% for provider in providers %}
+                    <option value="{{ provider.id }}" {% if provider.id == animal.provider.id %}selected{% endif %}>{{ provider.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <button>Registrar compra</button>
+        </form>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

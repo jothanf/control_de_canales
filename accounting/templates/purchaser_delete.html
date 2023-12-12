@@ -1,0 +1,28 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchaser Delete</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Eliminar comprador</h1>
+        <p><strong>Se eliminara el comprador y toda su informacion: </strong>{{ purchaser.name }}</p>
+        <form method="POST" id="delete-form" onsubmit="return confirmDelete()">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+        </form>
+        <div>
+            <a href="{% url 'purchaser_detail' purchaser.id %}" class="btn btn-primary">Cancelar</a>
+        </div>
+
+        <script>
+            function confirmDelete() {
+                return confirm("¿Está seguro de querer eliminar al cliente?\nSe perderan los datos asociados\nSeleccione 'Aceptar' para confirmar o 'Cancelar' para abortar la operación.");
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Providers Read</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Listado de proveedores</h1>
+
+        <table border="1">
+            <tr>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th></th>
+            </tr>
+            {% for provider in all_providers %}
+                <tr>
+                    <td>{{ provider.name }}</td>
+                    <td>{{ provider.phone }}</td>
+                    <td>{{ provider.address }}</td>
+                    <td><a href="{% url 'providers_detail' provider.id %}" class="btn btn-primary">Detalles</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endblock %}
+    <br>
+    <br>
+    <br>
+</body>
+</html>

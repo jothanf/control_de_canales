@@ -1,0 +1,79 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Vaca</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Registrar compra de animal</h1>
+        {% if message != None %}
+            <h3>{{ message }}</h3>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label for="identification">Identificación:</label>
+            <input type="text" id="identification" name="identification" value="{{ animal.identification }}">
+            
+            <label for="live_weight">Peso Vivo:</label>
+            <input type="text" id="live_weight" name="live_weight" pattern="[0-9]*" value="{{ animal.live_weight }}" required>
+            
+            <label for="live_price">Precio Vivo:</label>
+            <input type="text" id="live_price" name="live_price" pattern="[0-9]*" value="{{ animal.live_price }}" required>
+            
+            <label for="purchase_dates">Fecha de Compra:</label>
+            <input type="date" id="purchase_dates" name="purchase_dates" value="{{ animal.purchase_dates }}">
+            
+            <label for="payment_terms">Términos de Pago:</label>
+            <input type="number" id="payment_terms" name="payment_terms" value="{{ animal.payment_terms }}">
+            
+            
+            
+            
+            <label for="provider">Proveedor:</label>
+            <select id="provider" name="provider">
+                <option value="" selected>Selecciona un proveedor</option>
+                {% for provider in providers %}
+                    <option value="{{ provider.id }}" {% if provider.id == animal.provider.id %}selected{% endif %}>{{ provider.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Enviar</button>
+        </form>
+
+        <script>
+            function formatPrice(input) {
+                // Elimina cualquier caracter no numérico
+                let value = input.value.replace(/[^0-9]/g, '');
+
+                // Formatea el valor con puntos para separar miles, millones y mil millones
+                let formattedValue = new Intl.NumberFormat('es-ES').format(parseInt(value, 10));
+
+                // Actualiza el valor del campo
+                input.value = formattedValue;
+            }
+
+            function agregarGasto() {
+                const container = document.getElementById('other-expenses-container');
+                const gastoDiv = document.createElement('div');
+
+                gastoDiv.innerHTML = `
+                    <input type="text" placeholder="Descripción" name="descripciones[]">
+                    <input type="text" placeholder="Precio" name="precios[]">
+                    <button type="button" onclick="eliminarGasto(this)">Eliminar</button>
+                `;
+
+                container.appendChild(gastoDiv);
+            }
+
+            function eliminarGasto(button) {
+                const container = document.getElementById('other-expenses-container');
+                container.removeChild(button.parentNode);
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>

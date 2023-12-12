@@ -1,0 +1,96 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow read</title>
+</head>
+<body>
+    {% block content %}
+    {% if not cows_by_date %}
+    <h1>Buscador de animales</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="init_date">Fecha de inicio</label>
+        <input type="date" name="init_date" id="init_date" required>
+        <label for="end_date">Fecha de fin</label>
+        <input type="date" name="end_date" id="end_date" required>
+        <button type="submit">Buscar</button>
+    </form>
+    {% else %}
+        <h1>Buscador de animales</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="init_date">Fecha de inicio</label>
+            <input type="date" name="init_date" id="init_date" required>
+            <label for="end_date">Fecha de fin</label>
+            <input type="date" name="end_date" id="end_date" required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <h1>Listado de animales</h1>
+
+        <table border="1" id="alive">
+            <caption><strong>Animales vivos</strong></caption>
+            <thead>
+                <tr>
+                    <th>Identificación</th>
+                    <th>Tipo</th>
+                    <th>Proveedor</th>
+                    <th>Estado de cuenta</th>
+                    <th>Fecha de compra</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cow in cows_by_date %}
+                    {% if cow.state == 'alive' %}
+                        <tr>
+                            <td>{{ cow.identification }}</td>
+                            <td>{{ cow.animal_type }}</td>
+                            <td>{{ cow.provider }}</td>
+                            <td>{{ cow.payment_state }}</td>
+                            <td>{{ cow.purchase_dates }}</td>
+                            <td><a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Ver detalles</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table border="1" id="processed">
+            <caption><strong>Animales procesados</strong></caption>
+            <thead>
+                <tr>
+                    <th>Identificación</th>
+                    <th>Tipo</th>
+                    <th>Proveedor</th>
+                    <th>Estado de cuenta</th>
+                    <th>Fecha de compra</th>
+                    <th>Fecha de sacrificio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cow in cows_by_date %}
+                    {% if cow.state == 'processed' %}
+                        <tr>
+                            <td>{{ cow.identification }}</td>
+                            <td>{{ cow.animal_type }}</td>
+                            <td>{{ cow.provider }}</td>
+                            <td>{{ cow.payment_state }}</td>
+                            <td>{{ cow.purchase_dates }}</td>
+                            <td>{{ cow.slaughter_dates }}</td>
+                            <td><a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Ver detalles</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <br>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

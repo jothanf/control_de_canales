@@ -1,0 +1,24 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Read</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Expenses Read</h1>
+        <ul>
+            {% for expense in expenses %}
+                <li>
+                    <strong>Descripción:</strong> {{ expense.description }},
+                    <strong>Precio:</strong> {{ expense.price }},
+                    <strong>Animal:</strong> {{ expense.animal.identification }}
+                </li>
+            {% endfor %}
+            <a href="{% url 'canales_home' %}">Regresar al home</a>
+        </ul>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'canales.css' %}">
+    <title>Canales base</title>
+</head>
+<body>
+    <br>
+    <h1>Apartado de canales</h1>
+    <br>
+    <nav>
+        <a href="{% url 'providers_create' %}">Crear provedor</a>
+        <a href="{% url 'providers_read' %}">Lista de proveedores</a>
+        <a href="{% url 'pending_counts' %}">Cuentas pendientes</a>
+        <a href="{% url 'moviments_by_date' %}">Movimientos por fecha</a>
+    </nav>
+    <br>
+    <br>
+    <nav>
+        <a href="{% url 'cow_create_y' %}">Compra</a>
+        <a href="{% url 'cow_create_by_lote' %}">Compra en lote</a>
+        <a href="{% url 'proccess_animal' %}">Sacrificar animales</a>
+    </nav>
+    
+    {% block content %}
+    {% endblock %}
+
+    <nav class="footer">
+        <a href="{% url 'accounting_home' %}">Administracion de clientes</a>
+        <a href="{% url 'canales_home' %}">Administracion de canales</a>
+    </nav>
+
+</body>
+</html>

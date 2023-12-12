@@ -1,0 +1,33 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.main, name='main'),
+    path('canales_home', views.canales_home, name='canales_home'),
+    path('providers_create/', views.providers_create, name='providers_create'),
+    path('providers_create_success/<int:provider_id>', views.providers_create_success, name='providers_create_success'),
+    path('providers_read/', views.providers_read, name='providers_read'),
+    path('provider_update/<int:provider_id>', views.provider_update, name='provider_update'),
+    path('provider_update_success/<int:provider_id>', views.provider_update_success, name='provider_update_success'),
+    path('providers_detail/<int:provider_id>', views.providers_detail, name='providers_detail'),
+    path('providers_delete/<int:provider_id>', views.providers_delete, name='providers_delete'),
+    path('make_payment_provider/<int:cow_id>', views.make_payment_provider, name='make_payment_provider'),
+    path('cow_create', views.cow_create, name='cow_create'),
+    path('cow_create_2/<int:cow_id>', views.cow_create_2, name='cow_create_2'),
+    path('cow_create_3/<int:cow_id>', views.cow_create_3, name='cow_create_3'),
+    path('cow_read', views.cow_read, name='cow_read'),
+    path('cow_detail/<int:cow_id>', views.cow_detail, name='cow_detail'),
+    path('cow_update/<int:cow_id>', views.cow_update, name='cow_update'),
+    path('cow_delete/<int:cow_id>', views.cow_delete, name='cow_delete'),
+    path('proccess_animal', views.proccess_animal, name='proccess_animal'),
+    path('expenses_read', views.expenses_read, name='expenses_read'),
+    path('pending_counts/', views.pending_counts, name='pending_counts'),
+    path('moviments_by_date/', views.moviments_by_date, name='moviments_by_date'),
+    path('purchases_by_date/', views.purchases_by_date, name='purchases_by_date'),
+    path('purchases_by_date_stats/', views.purchases_by_date_stats, name='purchases_by_date_stats'),
+    path('processed_by_date/', views.processed_by_date, name='processed_by_date'),
+    path('cow_create_y/', views.cow_create_y, name='cow_create_y'),
+    path('cow_create_y_succes/<int:animal_id>/<int:kg_price>', views.cow_create_y_succes, name='cow_create_y_succes'),
+    path('cow_create_by_lote/', views.cow_create_by_lote, name='cow_create_by_lote'),
+    path('cow_create_by_batches_succes/', views.cow_create_by_batches_succes, name='cow_create_by_batches_succes'),
+]

@@ -1,0 +1,122 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment Provider</title>
+    <style>
+        .payment-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+        <h1>Hacer abono al proveedor</h1>
+        
+        <div class="payment-info">
+            <table>
+                <tr>
+                    <th colspan="2">Información del proveedor</th>
+                </tr>
+                <tr>
+                    <td><strong>Proveedor:</strong></td>
+                    <td>{{ cow.provider.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Telefono:</strong></td>
+                    <td>{{ cow.provider.phone }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Direccion:</strong></td>
+                    <td>{{ cow.provider.address }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="payment-info">
+            <table>
+                <tr>
+                    <th colspan="2">Información del animal</th>
+                </tr>
+                <tr>
+                    <td><strong>Identificación:</strong></td>
+                    <td>{{ cow.identification }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo:</strong></td>
+                    <td>{{ cow.animal_type }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Precio Vivo:</strong></td>
+                    <td>{{ cow.live_price }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Peso Vivo:</strong></td>
+                    <td>{{ cow.live_weight }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de Compra:</strong></td>
+                    <td>{{ cow.purchase_dates }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Términos de Pago:</strong></td>
+                    <td>{{ cow.payment_terms }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de Pago:</strong></td>
+                    <td>{{ cow.payment_date }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de Sacrificio:</strong></td>
+                    <td>{{ cow.slaughter_dates }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Estado de cuenta:</strong></td>
+                    <td>{{ cow.payment_state }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Abonos:</strong></td>
+                    <td>{{ cow.payments }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Saldo pendiente:</strong></td>
+                    <td>{{ cow.balance_due }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>{{ succes }}</h3>
+        {% if error_message is not None %}
+            <h3>{{ error_message }}</h3>
+        {% endif %}
+
+        <form method="POST" id="payment-form">
+            {% csrf_token %}
+            <label for="deposit">Monto del abono</label>
+            <input type="number" id="deposit" name="deposit" max="{{ cow.balance_due }}">
+            <button type="button" id="confirm-payment">Hacer abono</button>
+        </form>
+        <a href="{% url 'providers_detail' provider.id %}" class="btn btn-primary">Regresar al listado</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <script>
+            // Agregar una alerta de navegador al hacer clic en "Hacer abono"
+            document.getElementById('confirm-payment').addEventListener('click', function() {
+                if (confirm('Se hará un abono. ¿Desea continuar?')) {
+                    // Continuar con la presentación del formulario
+                    document.getElementById('payment-form').submit();
+                } else {
+                    // Cancelar la operación
+                }
+            });
+        </script>
+        
+    {% endblock %}
+</body>
+</html>

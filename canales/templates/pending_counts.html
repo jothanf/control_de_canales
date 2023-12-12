@@ -1,0 +1,41 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentas pendientes</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Cuentas pendientes</h1>
+
+        <table border="1">
+            <tr>
+                <th>Identificación</th>
+                <th>Saldo pendiente</th>
+                <th>Proveedor</th>
+                <th>Fecha de compra</th>
+                <th>Fecha límite de pago</th>
+                <th>Accion</th>
+            </tr>
+            {% for cow in pending_cows %}
+                <tr>
+                    <td>{{ cow.identification }}</td>
+                    <td>{{ cow.balance_due }}</td>
+                    <td>{{ cow.provider }}</td>
+                    <td>{{ cow.purchase_dates }}</td>
+                    <td>{{ cow.payment_date }}</td>
+                    <td><a href="{% url 'make_payment_provider' cow.id %}" class="btn btn-primary">Hacer pago</a></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th>Cuentas pendientes</th>
+                <th>{{ pending_counter }}</th>
+            </tr>
+        </table>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

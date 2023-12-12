@@ -1,0 +1,54 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow update</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Modificar datos del animal</h1>
+        <form method='POST'>
+            {% csrf_token %}
+            <label for="identification">Identificación</label>
+            <input type="text" name="identification" id="identification" value="{{ cow.identification }}" required>
+
+            <label for="kg_price">Precio por kilo</label>
+            <input type="text" name="kg_price" id="kg_price" value="{{ cow.live_price }}" required>
+
+            <label for="live_weight">Peso vivo</label>
+            <input type="text" name="live_weight" id="live_weight" value="{{ cow.live_weight }}" required>
+
+            <label for="purchase_dates">Fecha de Compra:</label>
+            <input type="date" id="purchase_dates" name="purchase_dates" value="{{ cow.purchase_dates|date:'Y-m-d' }}" required>
+            
+            <label for="payment_terms">Términos de Pago:</label>
+            <input type="number" id="payment_terms" name="payment_terms" value="{{ cow.payment_terms }}" required>
+            
+            <label for="animal_type">Tipo de animal</label>
+            <select name="animal_type" id="animal_type" required>
+                <option value="" selected>Selecciona un tipo de animal</option>
+                {% for choice in cow.ANIMAL_TYPE_CHOICES %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == cow.animal_type %}selected{% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="provider">Proveedor:</label>
+            <select id="provider" name="provider" required>
+                <option value="" selected>Selecciona un proveedor</option>
+                {% for provider in providers %}
+                    <option value="{{ provider.id }}" {% if provider.id == cow.provider.id %}selected{% endif %}>{{ provider.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <button>Actualizar datos</button>
+        </form>
+        <a href="{% url 'cow_detail' cow.id %}" class="btn btn-primary">Cancelar</a>
+        <a href="{% url 'cow_delete' cow.id %}" class="btn btn-primary">Eliminar</a>
+        <br>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends 'accounting_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de ventas</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Historial de ventas</h1>
+        <h3>Ingrese la fecha de acotamiento para ver los registros</h3>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <label for="init_date">Fecha de inicio</label>
+            <input type="date" name="init_date" id="init_date" required>
+        
+            <label for="finish_date">Fecha final</label>
+            <input type="date" name="finish_date" id="finish_date" required>
+        
+            <button type="submit">Buscar</button>
+        </form>
+        <hr>
+        {% if records %}
+            <h2>Registros entre {{ init_date }} y {{ finish_date }}</h2>
+            <table border="1">
+                <tr>
+                    <td><strong>Fecha del registro</strong></td>
+                    <td><strong>Venta En efectivo</strong></td>
+                    <td><strong>Venta a crédito</strong></td>
+                    <td><strong>Crédito cobrado</strong></td>
+                    <td><strong>Ingreso total</strong></td>
+                    <td><strong>Modirifacar</strong></td>
+                </tr>
+                {% for record in records %}
+                    <tr>
+                        <td>{{ record.date_day }}</td>
+                        <td>{{ record.sale_day_cash }}</td>
+                        <td>{{ record.sale_day_credit }}</td>
+                        <td>{{ record.credit_day_payment }}</td>
+                        <td>{{ record.total_income }}</td>
+                        <td><a href="{% url 'records_delete' record.id%}" class="btn btn-primary">Eliminar</a></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><strong>Cantidad de registros</strong></td>
+                    <td><strong>Venta En efectivo total</strong></td>
+                    <td><strong>Venta a crédito total</strong></td>
+                    <td><strong>Crédito cobrado total</strong></td>
+                    <td><strong>Ingreso acomulado total</strong></td>
+                    <td><strong>Credito pendiente</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>{{ summary.counter }}</strong></td>
+                    <td><strong>{{ summary.cash_counter }}</strong></td>
+                    <td><strong>{{ summary.credit_counter }}</strong></td>
+                    <td><strong>{{ summary.credit_day_counter }}</strong></td>
+                    <td><strong>{{ summary.total_income_counter }}</strong></td>
+                    <td><strong>{{ summary.pending_credit_counter }}</strong></td>
+                </tr>
+            </table>
+        {% endif %}
+        <hr>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

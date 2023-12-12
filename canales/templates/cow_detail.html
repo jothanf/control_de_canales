@@ -1,0 +1,127 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cow Detail</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Detalles del animal</h1>
+
+        <div class="cow-info">
+            <table>
+                <tr>
+                    <th colspan="2">Información general</th>
+                </tr>
+                <tr>
+                    <td><strong>Identificación:</strong></td>
+                    <td>{{ cow.identification }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Proveedor:</strong></td>
+                    <td>{{ cow.provider }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Estado del animal:</strong></td>
+                    <td>{{ cow.state }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Estado de la cuenta:</strong></td>
+                    <td>{{ cow.payment_state }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo:</strong></td>
+                    <td>{{ cow.animal_type}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cow-info">
+            <table>
+                <tr>
+                    <th colspan="2">Información de compra</th>
+                </tr>
+                <tr>
+                    <td><strong>Precio Vivo:</strong></td>
+                    <td>{{ cow.live_price }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Peso Vivo:</strong></td>
+                    <td>{{ cow.live_weight }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de Compra:</strong></td>
+                    <td>{{ cow.purchase_dates }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Términos de Pago:</strong></td>
+                    <td>{{ cow.payment_terms }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha límite de pago:</strong></td>
+                    <td>{{ cow.payment_date }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="cow-info">
+            <table>
+                <tr>
+                    <th colspan="2">Información de sacrificio</th>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de Sacrificio:</strong></td>
+                    <td>{{ cow.slaughter_dates }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Precio del Canal:</strong></td>
+                    <td>{{ cow.canal_price }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Peso del Canal:</strong></td>
+                    <td>{{ cow.canal_weight }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Precio * kilo en bruto:</strong></td>
+                    <td>{{ brut_price }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Precio total</strong></td>
+                    <td><strong>{{cow.total_price_purchase}}</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cow-info">
+            <table>
+                <tr>
+                    <th>Descripción de gasto</th>
+                    <th>Precio</th>
+                </tr>
+                {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.price }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No hay otros gastos registrados.</td>
+                    </tr>
+                {% endfor %}
+                
+            </table>
+        </div>
+
+        <div class="cow-actions">
+            <a href="{% url 'cow_create_2' cow.id %}" class="btn btn-primary">Agregar la información restante</a>
+            <a href="{% url 'make_payment_provider' cow.id %}" class="btn btn-primary">Estado de cuenta</a>
+        </div>
+        <br>
+        <a href="{% url 'cow_update' cow.id %}" class="btn btn-primary">Modificar</a>
+        <br>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

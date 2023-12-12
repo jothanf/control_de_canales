@@ -1,0 +1,35 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider update</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Modificar proveedor</h1>
+        <p><Strong>Nombre: </Strong>{{ provider.name }}</p>
+        <p><Strong>Telefono: </Strong>{{ provider.phone }}</p>
+        <p><Strong></Strong></p>
+        <p><Strong></Strong></p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="name">Nuevo nombre</label>
+            <input type="text" name="name" id="name" value="{{ provider.name }}" required>
+            <label for="phone">Nuevo telefono</label>
+            <input type="number" name="phone" id="phone" value="{{ provider.phone }}" required>
+            <label for="address">Nueva direccion</label>
+            <input type="text" name="address" id="address" value="{{ provider.address }}" required>
+            <label for="credit_balance">Nuevo tope de crédito</label>
+            <input type="number" name="credit_balance" id="credit_balance" value="{{ provider.credit_balance }}" required>
+            <button type="submit">Actualizar</button>
+        </form>
+        <div>
+            <a href="{% url 'providers_delete' provider.id %}" class="btn btn-primary">Eliminar proveedor</a>
+        </div>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>

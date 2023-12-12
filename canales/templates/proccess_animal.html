@@ -1,0 +1,38 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Animales por procesar</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Identificación</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Proveedor</th>
+                    <th>Fecha de compra</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for animal in live_animals %}
+                    <tr>
+                        <td>{{ animal.identification }}</td>
+                        <td>{{ animal.animal_type }}</td>
+                        <td>{{ animal.live_price }}</td>
+                        <td>{{ animal.provider }}</td>
+                        <td>{{ animal.purchase_dates }}</td>
+                        <td><a href="{% url 'cow_create_2' animal.id %}" class="btn btn-primary">Sacrificar</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider update success</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Actualizacion excitosa</h1>
+        <a href="{% url 'providers_detail' provider.id %}" class="btn btn-primary">Regresar</a>
+    {% endblock %}
+</body>
+</html>

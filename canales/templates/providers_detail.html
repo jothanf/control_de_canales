@@ -1,0 +1,164 @@
+{% extends 'canales_base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Proveedor</title>
+</head>
+<body>
+    {% block content %}
+    {% if not cows_by_date %}
+        <h1>Detalles del Proveedor</h1>
+        <table border="1">
+            <tr>
+                <th>Nombre</th>
+                <td>{{ provider.name }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ provider.phone }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ provider.address }}</td>
+            </tr>
+            <tr>
+                <th>Saldo de crédito</th>
+                <td>{{ provider.credit_balance }}</td>
+            </tr>
+
+            <tr>
+                <th>Saldo pendiente</th>
+                <td>{{ provider.pending_balance }}</td>
+            </tr>
+        </table>
+        <br>
+        <p>Acote la fecha</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="init_date">Fecha de inicio</label>
+            <input type="date" name="init_date" id="init_date" required>
+            <label for="end_date">Fecha de fin</label>
+            <input type="date" name="end_date" id="end_date" required>
+            <button type="submit">Buscar</button>
+        </form>
+        {% else %}
+        <h1>Detalles del Proveedor</h1>
+        <table border="1">
+            <tr>
+                <th>Nombre</th>
+                <td>{{ provider.name }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ provider.phone }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ provider.address }}</td>
+            </tr>
+            <tr>
+                <th>Saldo de crédito</th>
+                <td>{{ provider.credit_balance }}</td>
+            </tr>
+
+            <tr>
+                <th>Saldo pendiente</th>
+                <td>{{ provider.pending_balance }}</td>
+            </tr>
+            <tr>
+                <th>Total pagado</th>
+                <td>{{ provider.total_paid }}</td>
+            </tr>
+        </table>
+        <br>
+        <p>Acote la fecha</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="init_date">Fecha de inicio</label>
+            <input type="date" name="init_date" id="init_date" required>
+            <label for="end_date">Fecha de fin</label>
+            <input type="date" name="end_date" id="end_date" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <p>Fecha de inicio: {{ init_date }}</p>
+        <p>Fecha de fin: {{ end_date }}</p>
+        <h3>Animales asociados</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Identificación</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Precio</th>
+                    <th>Abono</th>
+                    <th>Restante</th>
+                    <th>Fecha de compra</th>
+                    <th>Estado de pago</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for cow in cows_by_date %}
+                    <tr>
+                        <td>{{ cow.identification }}</td>
+                        <td>{{ cow.animal_type }}</td>
+                        <td>{{ cow.state }}</td>
+                        <td>{{ cow.live_price }}</td>
+                        <td>{{ cow.payments }}</td>
+                        <td>{{ cow.balance_due }}</td>
+                        <td>{{ cow.purchase_dates }}</td>
+                        <td>{{ cow.payment_state }}</td>
+                        {% if cow.payment_state == 'pending' %}
+                            <td><a href="{% url 'make_payment_provider' cow.id %}" class="btn btn-primary">Hacer abono</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><strong>Total de compra</strong></td>
+                    <td>{{ total_live_price_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Cerdos registrados</strong></td>
+                    <td>{{ pigg_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Vacas registradas</strong></td>
+                    <td>{{ cow_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Total de animales</strong></td>
+                    <td>{{ animal_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Vacas vivas</strong></td>
+                    <td>{{ cow_alive_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Vacas procesadas</strong></td>
+                    <td>{{ cow_processed_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Cerdos vivos</strong></td>
+                    <td>{{ pigg_alive_counter }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Cerdos procesados</strong></td>
+                    <td>{{ pigg_processed_counter }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif%}
+        <div>
+            <hr>
+            <a href="{% url 'provider_update' provider.id %}" class="btn btn-primary">Modificar proveedor</a>
+            <a href="{% url 'cow_create_y' %}" class="btn btn-primary">Hacer compra</a>
+        </div>
+        <br>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>
